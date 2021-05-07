@@ -3,7 +3,32 @@ const EMPTY_HEART = '♡'
 const FULL_HEART = '♥'
 
 // Your JavaScript code goes here!
-
+const errorDiv = document.querySelector('div#modal')
+let fullHeart = true
+mimicServerCall()
+.then((res) => {
+  const allHeartsSpans = document.querySelectorAll('footer span')
+  //debugger
+  allHeartsSpans.forEach((heartElement) => {
+    heartElement.textContent = FULL_HEART
+    heartElement.className = 'activated-heart'
+    console.log(heartElement)
+    heartElement.addEventListener('click', (event) => {
+      fullHeart = !fullHeart
+      if (fullHeart) {
+        heartElement.textContent = FULL_HEART
+        heartElement.className = 'activated-heart'
+      } else {
+        heartElement.textContent = EMPTY_HEART
+        heartElement.className = ''
+      }
+    })
+  })
+})
+.catch((() => {
+  errorDiv.className = ''
+  setTimeout(() => {errorDiv.className = 'hidden'}, 3000)
+}))
 
 
 
